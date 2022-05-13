@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "streamunolib"
-version = "0.2.0"
+version = "0.2.1"
 description = "Library of generic transform components."
 authors = ["Pierre Chanial <pierre.chanial@apc.in2p3.fr>"]
 
