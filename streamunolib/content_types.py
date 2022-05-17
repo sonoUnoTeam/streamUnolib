@@ -1,14 +1,9 @@
 """This package contains tools to annotate transform outputs with a content type."""
-from dataclasses import dataclass
+from __future__ import annotations
 
-COMMON_MIMETYPES = {
-    'jpg': 'image/jpeg',
-    'mp3': 'audio/mpeg',
-    'mp4': 'video/mp4',
-    'png': 'image/png',
-    'svg': 'image/svg+xml',
-    'wav': 'audio/wav',
-}
+import mimetypes
+from dataclasses import dataclass
+from typing import Literal, Mapping
 
 
 @dataclass(frozen=True)
@@ -17,25 +12,39 @@ class ContentType:
 
     mimetype: str
 
+    @classmethod
+    def from_ext(cls, ext: str) -> ContentType:
+        """Content factory from file extension.
 
-def content_type(mimetype: str) -> ContentType:
-    """The ContentType factory.
+        Parameters:
+            extension: The file extension for which the MIME type is requested.
+
+        Returns:
+            The ContentType instance associated with the extension.
+
+        Examples:
+            >>> ContentType.from_ext('wav')
+            ContentType(mimetype='audio/wav')
+        """
+        ext = ext.lower()
+        mimetype, _ = mimetypes.guess_type(f'http://file.{ext}')
+        if mimetype is None:
+            raise ValueError(f'No MIME type known for extension {ext!r}')
+        return ContentType(mimetype)
+
+
+def content_type(ext: str) -> Mapping[Literal['content_type'], str]:
+    """Returns a mapping to annotate a content type.
 
     Parameters:
-        mimetype: The MIME type used in the content type.
+        extension: The file extension for which the MIME type is requested.
 
     Returns:
-        The ContentType instance associated with the mime type.
+        The mapping {'content_type': mimetype} where mimetype is inferred from
+        the extension.
 
     Examples:
         >>> content_type('wav')
-        ContentType(mimetype='audio/wav')
-        >>> content_type('text/csv')
-        ContentType(mimetype='text/csv')
+        {'content_type': 'audio/wav'}
     """
-    mimetype = mimetype.lower()
-    try:
-        mimetype = COMMON_MIMETYPES[mimetype]
-    except KeyError:
-        pass
-    return ContentType(mimetype)
+    return {'content_type': ContentType.from_ext(ext).mimetype}
