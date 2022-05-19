@@ -1,10 +1,19 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
-- repo: https://github.com/asottile/seed-isort-config
-  rev: 'v2.2.0'
+- repo: https://github.com/asottile/pyupgrade
+  rev: "v2.32.1"
   hooks:
-  - id: seed-isort-config
+  - id: pyupgrade
+    args: ["--py310-plus"]
+
+- repo: https://github.com/hadialqattan/pycln
+  rev: "v1.3.2"
+  hooks:
+  - id: pycln
+    args:
+    - --all
+    stages: [manual]
 
 - repo: https://github.com/pre-commit/mirrors-isort
   rev: 'v5.10.1'

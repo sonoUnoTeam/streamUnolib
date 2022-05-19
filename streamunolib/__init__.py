@@ -3,11 +3,11 @@
 This library provides generic components to construct transforms and decorators
 to annotate these components.
 """
-from .content_types import content_type
 from .decorators import exposed, hidden
+from .media_types import media_type
 
 __all__ = [
-    'content_type',
     'exposed',
     'hidden',
+    'media_type',
 ]
