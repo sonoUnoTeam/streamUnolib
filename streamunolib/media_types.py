@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import mimetypes
 from dataclasses import dataclass
-from typing import Any, TypedDict
+from typing import Any, Dict, TypedDict
 
 from typing_extensions import NotRequired  # Python 3.11
 
@@ -39,7 +39,7 @@ MediaTypeAnnotations = TypedDict(
     'MediaTypeAnnotations',
     {
         'contentMediaType': str,
-        'x-contentMediaEncoding': NotRequired[dict[str, Any]],
+        'x-contentMediaEncoding': NotRequired[Dict[str, Any]],
     },
 )
 

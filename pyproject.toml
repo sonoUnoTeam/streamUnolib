@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "streamunolib"
-version = "0.4.1"
+version = "0.4.3"
 description = "Library of generic transform components."
 authors = ["Pierre Chanial <pierre.chanial@apc.in2p3.fr>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 typing-extensions = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
